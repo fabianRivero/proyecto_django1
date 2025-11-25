@@ -1,0 +1,47 @@
+{% extends "general/layout.html" %}
+
+{% block head_title %}Bienvenido a Sport Center{% endblock %}
+
+{% block page_content %}
+
+<style>
+
+    .noday, .day{
+        width: 60px;
+        height: 50px;
+        border: 1px solid black;
+        text-align: center;
+    }
+
+    .unavailable{
+        background-color: rgb(212, 212, 212);
+    }
+
+    td .info {
+    font-size: 9px;
+    color: green;
+    }
+
+    td a {
+        text-decoration: none;
+        color: black;
+    }
+</style>
+
+<div class="container">
+    {% include "_includes/_messages.html" %}
+    <h1>Homepage</h1>
+
+    <section>
+        <h2>Calendario de reservas</h2>
+        <div>
+            {% if show_prev %}
+            <a href="{% url 'home' prev_year prev_month %}">Mes anterior</a>
+            {% endif %}
+            <a href="{% url 'home' next_year next_month %}">Mes siguiente</a>
+        </div>
+        {{ cal|safe }}
+    </section>
+</div>
+{% endblock %}
+

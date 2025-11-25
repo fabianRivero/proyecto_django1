@@ -1,0 +1,49 @@
+{% extends "general/layout.html" %}
+
+{% block head_title %}Bienvenido a Sport Center{% endblock %}
+
+{% block page_content %}
+
+<style>
+    img{
+        width: 250px;
+    }
+</style>
+
+
+<div class="container">
+    {% include "_includes/_messages.html" %}
+    <h1>Mis reservas</h1>
+    {% if reservations %}    
+        <ul>
+            {% for reservation in reservations %}
+                 
+
+                {% if reservation.date > current_datetime.date or reservation.date == current_datetime.date and reservation.time_start > current_datetime.time %}
+                <li>
+                    <strong>{{ reservation }}</strong>
+                    <div class="feed-image p-2 px-3">
+                        <img src="{{ reservation.image.url }}" alt="">
+                    </div>
+                    <a href="{% url 'unbook_reservation' reservation.id %}" class="btn btn-danger">
+                        Cancelar reserva
+                    </a>
+                </li>
+                {% endif %}
+
+                {% if reservation.date == current_datetime.date and reservation.time_start <= current_datetime.time and reservation.time_end > current_datetime.time %}
+                <li>
+                    <strong>{{ reservation }}</strong>
+                    <div class="feed-image p-2 px-3">
+                        <img src="{{ reservation.image.url }}" alt="">
+                    </div>
+                    <strong>En curso</a>
+                </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No tienes reservas activas.</p>
+    {% endif %}
+</div>
+{% endblock %}

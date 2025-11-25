@@ -1,0 +1,86 @@
+{% extends "general/layout.html" %}
+
+{% block head_title %}Bienvenido a Sport Center{% endblock %}
+
+{% block page_content %}
+
+<style>
+    .reservations-list{
+        display: flex;
+        flex-direction: column;
+        gap: 50px;
+    }
+
+    .img{
+        width: 250px;
+    }
+</style>
+
+<div class="container">
+    {% include "_includes/_messages.html" %}
+    <h1>Reservas disponibles del dia {{ date }}</h1>
+
+    <section>
+        <h2>Reservas disponibles</h2>
+        <ul class="reservations-list">
+        {% if reservations %}
+        {% for r in reservations %}
+
+            {% if r.status == "open" %}
+
+                {% if r.date > current_datetime.date or r.date == current_datetime.date and r.time_start > current_datetime.time %}
+                    <li class="open-reserve item">
+                        <h4>Cancha de {{ r.service }} {{ r.time_start }} - {{ r.time_end }}</h4>
+                        <div class="feed-image p-2 px-3">
+                            <img class="img" src="{{ r.image.url }}">
+                        </div>
+
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'book_reservation' r.id %}" class="btn btn-primary">
+                                Reservar
+                            </a>
+                        {% else %}
+                            <a href="{% url 'login' %}" class="btn btn-secondary">
+                                Inicia sesión para reservar
+                            </a>
+                        {% endif %}
+                    </li>
+
+                {% else %}
+                    <li class="taken-reserve item">
+                        <h4>Cancha de {{ r.service }} {{ r.time_start }} - {{ r.time_end }}</h4>
+                        <div class="feed-image p-2 px-3">
+                            <img class="img" src="{{ r.image.url }}">
+                        </div>
+                        <p>a</p>
+                        <strong>No disponible</strong>
+                    </li>
+                {% endif %}
+
+            {% else %}
+                <li class="taken-reserve item">
+                    <h4>Cancha de {{ r.service }} {{ r.time_start }} - {{ r.time_end }}</h4>
+                    <div class="feed-image p-2 px-3">
+                        <img class="img" src="{{ r.image.url }}">
+                    </div>
+                    {% if r.user and r.user.user == user %}
+                        <a href="{% url 'unbook_reservation' r.id %}" class="btn btn-danger">
+                            Cancelar reserva
+                        </a>
+                    {% else %}
+                    <p>b</p>
+                        <strong>No disponible</strong>
+                    {% endif %}
+                </li>
+
+            {% endif %}
+
+        {% endfor %}
+        {% else %}
+                <p>No hay reservas disponibles.</p>
+        {% endif %}
+        </ul>
+    </section>
+</div>
+
+{% endblock %}

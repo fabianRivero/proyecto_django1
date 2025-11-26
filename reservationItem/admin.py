@@ -8,16 +8,11 @@ class ReservationItemAdmin(admin.ModelAdmin):
     list_filter = ("date", "status", "service")
     actions = ["generate_recurring_reservations"]
 
-    def get_fields(self, request, obj=None):
-        fields = ["date", "time_start", "time_end", "status", "service", "image"]
-        if obj and obj.status == "taken":
-            fields.append("user")
-        return fields
+    fields = ["date", "time_start", "time_end", "status", "service", "image", "user"]
 
-    def get_readonly_fields(self, request, obj=None):
-        if obj:
-            return ["user"]
-        return []
+    def save_model(self, request, obj, form, change):
+        super().save_model(request, obj, form, change)
+
     
 @admin.register(RecurringReservation)
 class RecurringReservationAdmin(admin.ModelAdmin):

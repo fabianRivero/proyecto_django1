@@ -18,9 +18,9 @@ TEMPLATES_DIR = BASE_DIR / "reservationmanager" / "templates"
 
 SECRET_KEY = 'django-insecure-cp8u(wsj2tr5sc-4tv@3k1_1$b!2&+8i=bra*a4gfk#l_syj+d'
 
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ["#"]
+ALLOWED_HOSTS = ["*"]
 
 INSTALLED_APPS = [
     'django.contrib.admin',

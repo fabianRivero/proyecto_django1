@@ -31,9 +31,9 @@ class RecurringReservation(models.Model):
     ]
 
     SERVICES_CHOICES = [
-        ("soccer", "Futbol"),
-        ("tennis", "Tenis"),
-        ("wally", "Walley"),
+        ("Futbol", "Futbol"),
+        ("Tenis", "Tenis"),
+        ("Wally", "Wally"),
     ]
 
     rule_type = models.CharField(
@@ -104,9 +104,9 @@ class RecurringReservation(models.Model):
 
 class ReservationItem(models.Model):
     SERVICES_CHOICES = [
-        ("Futbol", "soccer"),
-        ("Tenis", "tennis"),
-        ("Walley", "wally"),
+        ("Futbol", "Futbol"),
+        ("Tenis", "Tenis"),
+        ("Wally", "Wally"),
     ]
 
     class States(models.TextChoices):
@@ -121,7 +121,7 @@ class ReservationItem(models.Model):
         blank=True
     )
 
-    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='reservations', null=True, blank=True)
+    user = models.ForeignKey(UserProfile, verbose_name="Usuario", on_delete=models.CASCADE, related_name='reservations', null=True, blank=True)
     date = models.DateField("Fecha")
     time_start = models.TimeField("Hora de inicio")
     time_end = models.TimeField("Hora de finalización")

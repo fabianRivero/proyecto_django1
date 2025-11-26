@@ -214,11 +214,15 @@ class TakeRecurringReservationView(FormView):
         dates_in_month = self.get_weekday_dates(year, month, weekday)
 
         if len(dates_in_month) < weeks:
-            form.add_error(None, "Este mes no tiene suficientes semanas.")
+            messages.add_message(self.request, messages.ERROR, "Este mes no tiene suficinestes semanas")
             return self.form_invalid(form)
 
         week_groups = self.get_week_groups(dates_in_month, weeks)
         groups = self.filter_available_groups(service, week_groups)
+
+        if len(groups) == 0:
+            messages.add_message(self.request, messages.ERROR, "No hay fechas con reservas disponibles.")
+            return self.form_invalid(form)
 
         clean_groups = []
         for group in groups:
@@ -241,6 +245,10 @@ class TakeRecurringReservationView(FormView):
 
         dates = [date.fromisoformat(d) for d in selected_group]
         available_times = self.get_available_times(service, dates)
+
+        if not selected_group_json:
+            messages.add_message(request, messages.ERROR, "No seleccionaste ninguna opción.")
+            return
 
         return self.render_to_response(
             self.get_context_data(
@@ -275,12 +283,15 @@ class TakeRecurringReservationView(FormView):
             for item in items:
                 item.book(user_profile)
         
+        
         messages.add_message(request, messages.SUCCESS, "¡Reservas realizadas con éxito!")
         return redirect(self.success_url)
     
 
     def get_weekday_dates(self, year, month, weekday):
         num_days = calendar.monthrange(year, month)[1]
+            
+
         return [
             date(year, month, d)
             for d in range(1, num_days + 1)
@@ -314,9 +325,7 @@ class TakeRecurringReservationView(FormView):
         return valid
 
     def get_available_times(self, service, dates):
-        all_times = ReservationItem.objects.filter(service=service)\
-                                           .values("time_start", "time_end")\
-                                           .distinct()
+        all_times = ReservationItem.objects.filter(service=service).values("time_start", "time_end").distinct()
         available = []
         for t in all_times:
             if all(

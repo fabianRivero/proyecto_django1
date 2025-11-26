@@ -30,16 +30,14 @@
 
     {% for g in available_groups %}
         <label style="display:block; margin-bottom:12px;">
-            <input type="radio" name="selected_group" value="{{ g.json }}">
-            <div>
-                {% for d in g.list %}
-                    <p>{{ d }}</p>
-                {% endfor %}
-            </div>
+            <input type="radio" class="input" name="selected_group" value="{{ g.json }}">
+            {% for d in g.list %}
+                <p>{{ d }}</p>
+            {% endfor %}
         </label>
     {% endfor %}
 
-    <button type="submit">Siguiente</button>
+    <button type="submit" class="change_button" disabled>Siguiente</button>
 </form>
 
 {% endif %}
@@ -62,14 +60,37 @@
 
         {% for t in available_times %}
             <label style="display:block; margin-bottom:12px;">
-                <input type="radio" name="time_range" value='{"time_start": "{{ t.time_start }}", "time_end": "{{ t.time_end }}"}'>
-                <div>
-                        <p>{{ t.time_start }} - {{ t.time_end }}</p>
-                </div>
+                <input type="radio" class="input" name="time_range" value='{"time_start": "{{ t.time_start }}", "time_end": "{{ t.time_end }}"}'>
+                <p>{{ t.time_start }} - {{ t.time_end }}</p>
             </label>
         {% endfor %}
 
-        <button type="submit">Siguiente</button>
+        <button type="submit" class="change_button" disabled>Siguiente</button>
     </form>
     {% endif %}
+
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+
+        const forms = document.querySelectorAll("form");
+
+        forms.forEach(form => {
+            const radios = form.querySelectorAll('input[type="radio"]');
+            const button = form.querySelector('.change_button');
+
+            if (radios.length === 0 || !button) return;
+
+            button.disabled = true;
+
+            radios.forEach(radio => {
+                radio.addEventListener("change", () => {
+                    button.disabled = false;
+                });
+            });
+        });
+
+    });
+    </script>
+
 {% endblock %}
+

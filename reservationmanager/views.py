@@ -102,16 +102,11 @@ class RegisterView(CreateView):
         return super(RegisterView, self).form_valid(form)
     
 
-class ContactView(TemplateView):
-    template_name = "general/contact.html"
-
-
 @login_required
 def logout_view(request):
     logout(request)
     messages.add_message(request, messages.INFO, "se ha cerrado sesión correctamente.")
     return HttpResponseRedirect(reverse("home_redirect"))
-
 
 
 def register_day_view(request, year=None, month=None, day=None):

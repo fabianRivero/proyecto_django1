@@ -1,4 +1,27 @@
 # Proyecto de gestor de reservas
+
+## índice:
+
+* [Índice](#índice)
+* [Contraseñas y usuarios ya integrados](#contraseñas-y-usuarios-ya-integrados)
+* [Instrucciones](#instrucciones)
+    * [Como gestionar reservas como administrador](#como-gestionar-reservas-como-administrador)
+    * [Como usar la aplicación como usuario](#como-usar-la-aplicación-como-usuario)
+
+
+## Contraseñas y usuarios ya integrados:
+Estos usuarios son los ya integrados en la base de datos para realizar pruebas sin tener que crear nuevos.
+
+* Admin (superuser):
+    * Username: admin
+    * Contraseña: 12345678
+* Usuario:
+    * Username: usuario1@email.com
+    * Contraseña: 12345678
+* Usuario:
+    * Username: usuario2@email.com
+    * Contraseña: 12345678   
+
 Este proyecto es de una aplicación para reservar canchas de futbol, wally o tenis en diferentes turnos definidos por una fecha y horario específico. 
 
 El funcionamiento basico de esta aplicación es la siguiente:
@@ -94,3 +117,8 @@ Entonces despues de seleccionar el horario, al clickar a siguiente se hacen las 
 #### Mis reservas:
 La pagina de "Mis reservas" es para ver las reservas que el usuario tiene que esten activas. Se pueden cancelar desde ahi directamente.
 
+* [Índice](#índice)
+* [Contraseñas y usuarios ya integrados](#contraseñas-y-usuarios-ya-integrados)
+* [Instrucciones](#instrucciones)
+    * [Como gestionar reservas como administrador](#como-gestionar-reservas-como-administrador)
+    * [Como usar la aplicación como usuario](#como-usar-la-aplicación-como-usuario)

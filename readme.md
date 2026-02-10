@@ -12,14 +12,11 @@
 ## Contraseñas y usuarios ya integrados:
 Estos usuarios son los ya integrados en la base de datos para realizar pruebas sin tener que crear nuevos.
 
-* Admin (superuser):
-    * Username: admin
+* Admin (superuser) para la pagina en reactproject.site:
+    * Username: fabriv
     * Contraseña: 12345678
-* Usuario:
+* Usuario para la pagina en reactproject.site:
     * Username: usuario1@email.com
-    * Contraseña: 12345678
-* Usuario:
-    * Username: usuario2@email.com
     * Contraseña: 12345678   
 
 Este proyecto es de una aplicación para reservar canchas de futbol, wally o tenis en diferentes turnos definidos por una fecha y horario específico. 
